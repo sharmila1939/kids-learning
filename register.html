@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>register </title>
+</head>
+<body align="center" bgcolor="powderblue">
+    <h1 style="font-family:Times New Roman;color: rgb(180, 111, 244);">REGISTER FORM</h1>
+    <form>
+        <lable>NAME</lable>
+        <input type="text" id="name" placeholder="NAME"><br><br>
+        <lable>AGE</lable>
+        <input type="number" id="age" placeholder="AGE"><br><br>
+        <lable>DATE OF BIRTH</lable> 
+        <input type="text" id="dob" placeholder="DOB"><br><br>
+        <lable>EMAIL</lable>
+        <input type="text" id="email" placeholder="EMAIL"><br><br>
+        <lable>MOBILE NUMBER</lable>
+        <input type="number" id="mb" placeholder="NUMBER"><br><br>
+        <lable>ADDRESS</lable>
+        <input type="text" id="add" placeholder="ADDRESS"><br><br>
+        <lable>PASSWORD</lable>
+        <input type="password" id="pass" placeholder="PASSWORD"><br><br>
+        <lable>RE-ENTER PASSWORD</lable>
+        <input type="password" id="pass2" placeholder="PASSWORD"><br><br>
+        <button onclick="submit()">SUBMIT</button>
+        <button>RESET</button>
+    </form>
+    <script>
+        function submit(){
+            console.log("clicked");
+
+            let name=document.getElementByid("name").value;
+            let age=document.getElementByid("age").value;
+            let dateofbirth=document.getElementByid("dob").value;
+            let email=document.getElementByid("email").value;
+            let mobile =document.getElementByid("mb").value;
+            let address=document.getElementByid("add").value;
+            let password=document.getElementByid("pass").value;
+            let repassword=document.getElementByid("pass2").value;
+
+
+            }
+    </script>
+</body>
+</html>
