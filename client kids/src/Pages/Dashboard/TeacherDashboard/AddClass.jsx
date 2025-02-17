@@ -99,12 +99,15 @@ const demoDays = [
       status: 'upcoming',
     };
 
+    console.log(data);
+    
+
     // console.log("add classes",data)
 
 
     if (currentDate > givenDate) {
       alert('choose a valid Date!');
-    } else if (note === '' || date === '' || link === '') {
+    } else if (  date === '' || link === '') {
       alert('All fields are required!');
     } else {
       try {
