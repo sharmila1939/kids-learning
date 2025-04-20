@@ -33,6 +33,12 @@ import ResetPassword from './Pages/ForgetPassword/ResetPassword'
 import { Toaster } from 'react-hot-toast'
 import ResetTeacher from './Pages/ForgetPassword/ResetTeacher'
 import Course from './Pages/Components/Admin/Course'
+import HomeworkList from './Pages/Components/Homework/homeworklist'
+import CreateHomework from './Pages/Components/Homework/CreateHomework'
+import SubmitHomework from './Pages/Components/Homework/submithomework'
+import CreateQuiz from './Pages/Components/Quizes/createquizes'
+import QuizList from './Pages/Components/Quizes/quizelist'
+import TakeQuiz from './Pages/Components/Quizes/takequize'
 
 
 const router = createBrowserRouter(
@@ -70,8 +76,14 @@ const router = createBrowserRouter(
       <Route path='/forgetPassword' element={<Forgetpassword/>}/>
       <Route path='/student/forgetPassword/:token' element={<ResetPassword/>}/>
       <Route path='/teacher/forgetPassword/:token' element={<ResetTeacher/>}/>
+
+      <Route path='/homework' element={<HomeworkList/>}/>
+      <Route path='/create' element={<CreateHomework/>}/>
+      <Route path='/submit/:id' element={<SubmitHomework/>}/>
+      <Route path='/createquiz' element={<CreateQuiz/>}/>
+      <Route path='/quizlist' element={<QuizList/>}/>
+      <Route path='/takequiz' element={<TakeQuiz/>}/>
       
-    
       <Route path='*' element={<ErrorPage/>}/>
     </Route>
     

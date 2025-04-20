@@ -5,11 +5,11 @@ import Logo from '../../Images/logo.svg'
 function Header() {
   return (
     <>
-    <header className="flex items-center justify-evenly bg-[#042439] w-full fixed z-10 gap-[20rem]">
+    <header className="flex items-center justify-evenly bg-[#0449] w-full fixed z-10 gap-[20rem]">
       <NavLink to='/'>
       <div className="logo">
         <img src={Logo} alt="logo" />
-        <h1 className='text-2xl text-[#4E84C1] font-bold'>Shiksharthee</h1>
+        <h1 className='text-2xl text-[#4E84C1] font-bold'>E-Learning Forkids</h1>
       </div>
       </NavLink>
       <div className="link-nav">

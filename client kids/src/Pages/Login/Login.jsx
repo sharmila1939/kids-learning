@@ -74,7 +74,7 @@ export default function Login() {
             navigate('/pending')
           }else{
             if(userType === 'student'){
-              navigate(`/StudentDocument/${userid}`)
+              navigate(`/Student/Dashboard/${userid}`)
             }else if(userType === 'teacher'){
               navigate(`/TeacherDocument/${userid}`)
             }

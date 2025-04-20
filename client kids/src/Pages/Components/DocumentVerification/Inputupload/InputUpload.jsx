@@ -16,7 +16,7 @@ const InputUpload = ({ label, placeholder,value,onChange}) => {
           onChange={onChange}
         />
        
-        <div className="relative z-0 flex items-center justify-center w-80 py-3 px-7 border-2 text-[#e5e5e5] rounded-md cursor-pointer">
+        <div className="relative z-0 flex items-center justify-center w-80 py-3 px-7 border-2 text-[#black] rounded-md cursor-pointer">
           <span className='mr-28'>
             {value ? value.name : placeholder}
           </span>

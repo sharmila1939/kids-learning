@@ -4,6 +4,8 @@
    margin-left: 200px;
 }
 
+
+
 .article{
     min-height: auto;
     width: 23rem;
@@ -104,6 +106,7 @@
 .right-part{
     margin-left: 90px;
 }
+
 
 .error-message{
     color: #d41717;
