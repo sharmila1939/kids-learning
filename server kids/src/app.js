@@ -13,8 +13,10 @@ app.use(cors({
 app.use(express.json({limit: "16kb"}))
 app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(express.static("public"))
-app.use(cookieParser())
 
+app.use(cookieParser())
+app.use('/public', express.static('public'));
+  
 
 // export const instance = new Razorpay({
 //     key_id: process.env.KEY_ID,
@@ -40,5 +42,15 @@ app.use("/api/admin", adminRouter)
 import paymentRouter from "./routes/payment.routes.js"
 app.use("/api/payment", paymentRouter)
 
+//homework routes
+import homeworkRouter from "./routes/homeworkroutes.js"
+
+app.use("/api/homework", homeworkRouter)
+
+//quiz routes
+import quizRouter from "./routes/quize.route.js"
+app.use("/api/quiz", quizRouter)
+
+// 
 
 export {app}

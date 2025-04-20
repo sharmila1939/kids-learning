@@ -14,7 +14,7 @@ function HomeworkList() {
   }));
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/homework/all')
+    axios.get('http://localhost:8888/api/homework/all')
       .then(res => {
         if (res.data.length === 0) {
           setHomeworks(defaultHomeworks);
@@ -30,7 +30,7 @@ function HomeworkList() {
   return (
     <div style={{ padding: 20 }}>
       <Typography variant="h4">Homework List</Typography>
-      <Button variant="contained" component={Link} to="/create" style={{ marginTop: 10 }}>Create Homework</Button>
+      {/* <Button variant="contained" component={Link} to="/create" style={{ marginTop: 10 }}>Create Homework</Button> */}
       <Grid container spacing={2} style={{ marginTop: 20 }}>
         {homeworks.map(hw => (
           <Grid item xs={12} md={4} key={hw._id}>

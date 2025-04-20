@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const homeworkSchema = new mongoose.Schema({
   title: String,
@@ -16,4 +16,6 @@ const homeworkSchema = new mongoose.Schema({
   createdBy: String // Teacher ID
 }, { timestamps: true });
 
-module.exports = mongoose.model("Homework", homeworkSchema);
+const Homework = mongoose.model('Homework', homeworkSchema);
+
+export default Homework;

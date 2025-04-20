@@ -1,23 +1,45 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { TextField, Button, Typography, Card, CardContent } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Typography,
+  Card,
+  CardContent
+} from '@mui/material';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
 function SubmitHomework() {
   const { id } = useParams();
-  const [data, setData] = useState({
-    studentId: '',
-    file: ''
-  });
+  const [studentId, setStudentId] = useState('');
+  const [file, setFile] = useState(null);
 
-  const handleChange = e =>
-    setData({ ...data, [e.target.name]: e.target.value });
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
-  const handleSubmit = () => {
-    axios.post(`http://localhost:5000/api/homework/submit/${id}`, data).then(() => {
-      alert("Homework submitted");
-    });
+  const handleSubmit = async () => {
+    if (!studentId || !file) {
+      alert('Please provide both Student ID and a PDF file');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('studentId', studentId);
+    formData.append('file', file); // 'file' key should match backend field name
+
+    try {
+      await axios.post(`http://localhost:8888/api/homework/submit/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      alert('Homework submitted successfully');
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('Submission failed');
+    }
   };
 
   return (
@@ -34,27 +56,40 @@ function SubmitHomework() {
           </Typography>
 
           <TextField
-            name="studentId"
             label="Student ID"
             fullWidth
             margin="normal"
-            onChange={handleChange}
+            value={studentId}
+            onChange={(e) => setStudentId(e.target.value)}
           />
 
-          <TextField
-            name="file"
-            label="File URL or Name"
+          <Button
+            variant="outlined"
+            component="label"
             fullWidth
-            margin="normal"
-            onChange={handleChange}
-          />
+            sx={{ mt: 2 }}
+          >
+            Upload PDF
+            <input
+              type="file"
+              hidden
+              accept="application/pdf"
+              onChange={handleFileChange}
+            />
+          </Button>
+
+          {file && (
+            <Typography variant="body2" sx={{ mt: 1 }}>
+              Selected: {file.name}
+            </Typography>
+          )}
 
           <Button
             variant="contained"
             fullWidth
             onClick={handleSubmit}
             sx={{
-              mt: 2,
+              mt: 3,
               transition: '0.3s',
               '&:hover': {
                 transform: 'scale(1.05)',

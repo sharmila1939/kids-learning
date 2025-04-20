@@ -39,6 +39,7 @@ import SubmitHomework from './Pages/Components/Homework/submithomework'
 import CreateQuiz from './Pages/Components/Quizes/createquizes'
 import QuizList from './Pages/Components/Quizes/quizelist'
 import TakeQuiz from './Pages/Components/Quizes/takequize'
+import HomeworkSubmissions from './Pages/Components/Homework/homeworkSubmissions'
 
 
 const router = createBrowserRouter(
@@ -67,6 +68,7 @@ const router = createBrowserRouter(
         <Route path='/Student/Dashboard/:ID/Classes' element={<StudentClasses/>}/>
         <Route path='/Student/Dashboard/:ID/Courses' element={<StudentCourses/>}/>
       </Route>
+      
       <Route path='/Teacher/Dashboard/:ID' element={<TeacherLayout/>}>
         <Route path='/Teacher/Dashboard/:ID/Home' element={<DashboardTeacher/>}/>
         <Route path='/Teacher/Dashboard/:ID/Classes' element={<TeacherClasses/>}/>
@@ -79,10 +81,13 @@ const router = createBrowserRouter(
 
       <Route path='/homework' element={<HomeworkList/>}/>
       <Route path='/create' element={<CreateHomework/>}/>
+      <Route path='/submissions' element={<HomeworkSubmissions/>}/>
+  
       <Route path='/submit/:id' element={<SubmitHomework/>}/>
+      
       <Route path='/createquiz' element={<CreateQuiz/>}/>
       <Route path='/quizlist' element={<QuizList/>}/>
-      <Route path='/takequiz' element={<TakeQuiz/>}/>
+      <Route path='/quiz/:id' element={<TakeQuiz/>}/>
       
       <Route path='*' element={<ErrorPage/>}/>
     </Route>
