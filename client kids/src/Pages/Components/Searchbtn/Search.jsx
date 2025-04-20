@@ -43,7 +43,6 @@ function Search() {
     })
 
     const res = await data.json();
-    console.log(res.data);
     setTeacherDetails(res.data);
     setOpenTM(true);
   }
@@ -59,23 +58,18 @@ function Search() {
           credentials: 'include',
         });
   
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-  
+        if (!response.ok) throw new Error('Failed to fetch data');
+
         const user = await response.json();
         setCourseID(user.data);
-        console.log(user.data);
         setIdArray(prevIdArray => [...prevIdArray, ...user.data.map(res => res._id)]);
-        // Using a callback in setIdArray to ensure you're working with the most up-to-date state
-  
+
       } catch (error) {
         console.log(error.message)
       }
     };
     getData();
   }, []);
-  
 
   const SearchTeacher = async (sub) => {
     const subject = sub.toLowerCase();
@@ -87,11 +81,9 @@ function Search() {
       credentials: "include",
     });
     const response = await Data.json();
-    console.log(response);
-    
+
     if (response.statusCode === 200) {
       setCourse(response.data);
-      // console.log(response.data);
     }
     setData("");
   };
@@ -101,200 +93,123 @@ function Search() {
       `http://localhost:8888/api/course/${courseName}/${id}/verify/student/${ID}`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
-
-        // body: JSON.stringify({}),
       }
     );
     const res = await check.json();
-
-    console.log(res);
-
-    if(res.statusCode === 200){
-
-    const data = await fetch(`http://localhost:8888/api/payment/course/${id}/${courseName}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ fees: price[courseName]*100 }),
-      credentials: "include",
-    });
-
-    const DATA = await data.json();
-    // console.log(DATA.data.id)
-
-    const Key = await fetch("http://localhost:8888/api/payment/razorkey", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-    const response = await Key.json();
-
-    const options = {
-      key: response.data.key,
-      amount: price[courseName]*100,
-      currency: "INR",
-      name: "Shiksharthee",
-      description: "Enroll in a course",
-      image: logo,
-      order_id: DATA.data.id, // Include the order_id from the response
-      handler: async (response) => {
-        const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
-          response;
-
-        // Send the payment details to the server for verification
-        const verificationData = {
-          razorpay_payment_id,
-          razorpay_order_id,
-          razorpay_signature,
-        };
-
-        const verificationResponse = await fetch(
-          `http://localhost:8888/api/payment/confirmation/course/${id}`,
+    if (res.statusCode === 200) {
+      try {
+        let response = await fetch(
+          `http://localhost:8888/api/course/${courseName}/${id}/add/student/${ID}`,
           {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(verificationData),
+            headers: { "Content-Type": "application/json" },
             credentials: "include",
           }
         );
-
-        const res = await verificationResponse.json();
-        console.log(res.statusCode);
+        let res = await response.json();
         if (res.statusCode === 200) {
-          try {
-            let response = await fetch(
-              `http://localhost:8888/api/course/${courseName}/${id}/add/student/${ID}`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                credentials: "include",
-                // body: JSON.stringify({}),
-              }
-            );
-
-            let res = await response.json();
-            console.log(res);
-            setPopup(true);
-          } catch (error) {
-            console.log(error);
-          }
+          setPopup(true);
+        } else {
+          alert("Enrollment failed");
         }
-      },
-      prefill: {
-        name: "Gaurav Kumar",
-        email: "gaurav.kumar@example.com",
-      },
-      notes: {
-        address: "Razorpay Corporate Office",
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
-
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
-    }else{
-      alert(res.message)
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert(res.message);
     }
   };
-
+  
   return (
-    <>
-      <div className="search mb-4">
+    <div className="px-4 py-6 max-w-6xl mx-auto">
+      <div className="flex items-center justify-center gap-4 mb-6">
         <img
           src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/6c476f454537d7f27cae2b4d0f31e2b59b3020f5"
           width={30}
-          alt=""
+          alt="search-icon"
         />
         <input
           type="text"
           placeholder="Ex: Math ..."
+          className="border border-gray-300 px-3 py-2 rounded-md w-60"
           value={data}
           onChange={(e) => setData(e.target.value)}
         />
-        <button className="w-32" onClick={() => SearchTeacher(data)}>
+        <button className="bg-blue-700 text-white px-4 py-2 rounded-md" onClick={() => SearchTeacher(data)}>
           Find Teacher
         </button>
       </div>
-      <div className="overflow-auto">
-        {course &&
-          course.map((Data) => (
+
+      <div className="space-y-4">
+        {course.map((Data) => (
+          <div
+            key={Data._id}
+            className="relative bg-white shadow-md border border-gray-200 p-5 rounded-xl flex flex-col gap-3 md:flex-row md:items-center"
+          >
+            <div className="font-semibold text-xl text-blue-800 w-48">{Data.coursename.toUpperCase()}</div>
             <div
-              key={Data._id}
-              className="relative bg-blue-600 p-4 gap-6 mb-3 flex  rounded-sm max-w-4xl h-20 items-start"
+              onClick={() => openTeacherDec(Data.enrolledteacher.Teacherdetails, Data.enrolledteacher.Firstname, Data.enrolledteacher.Lastname, Data.coursename)}
+              className="cursor-pointer font-medium text-gray-800 hover:text-blue-700"
             >
-              <div className="h-fit font-bold text-blue-900">
-                {Data.coursename.toUpperCase()}
-              </div>
-              <div onClick={()=>openTeacherDec(Data.enrolledteacher.Teacherdetails, Data.enrolledteacher.Firstname, Data.enrolledteacher.Lastname, Data.coursename)} className="text-gray-300 cursor-pointer font-bold">
-                {Data.enrolledteacher.Firstname} {Data.enrolledteacher.Lastname}
-              </div>
-              <div className="text-gray-900">
-                <span className="text-black">Desc :</span> {Data.description}
-              </div>
-              <div>{Data.enrolledStudent.length}/20</div>
-              { idArray.includes(Data._id) ? (
-                <div onClick={()=> alert("You Already enrolled, pls find other course")}
-                  className="text-white bg-green-900 py-2 px-3 absolute right-4 cursor-not-allowed">
+              {Data.enrolledteacher.Firstname} {Data.enrolledteacher.Lastname}
+            </div>
+            <div className="text-sm text-gray-600">Desc: {Data.description}</div>
+            <div className="text-sm text-gray-500">{Data.enrolledStudent.length}/20 enrolled</div>
+
+            <div className="ml-auto">
+              {idArray.includes(Data._id) ? (
+                <button
+                  disabled
+                  className="bg-green-700 text-white px-4 py-2 rounded cursor-not-allowed"
+                  onClick={() => alert("You Already enrolled, pls find other course")}
+                >
                   Already Enrolled
-                </div>
+                </button>
               ) : Data.enrolledStudent.length < 20 ? (
-                <div
+                <button
+                  className="bg-blue-700 text-white px-4 py-2 rounded"
                   onClick={() => handleEnroll(Data.coursename, Data._id)}
-                  className="text-white bg-blue-900 py-2 px-3 absolute right-4 cursor-pointer"
                 >
                   Enroll Now
-                </div>
+                </button>
               ) : (
-                <div onClick={()=> alert("Already Full, pls find other course")}
-                  className="text-white bg-red-900 py-2 px-3 absolute right-4 cursor-not-allowed">
+                <button
+                  disabled
+                  className="bg-red-700 text-white px-4 py-2 rounded cursor-not-allowed"
+                  onClick={() => alert("Already Full, pls find other course")}
+                >
                   Already Full
-                </div>
+                </button>
               )}
-              <div className="absolute bottom-2">
-                <span className='mt-2 font-bold'>Timing : </span>
-                {'[ '}
-                {Data.schedule.map(daytime => {
-                  return `${daysName[daytime.day]} ${Math.floor(daytime.starttime / 60)}:${daytime.starttime % 60 === 0 ? "00" : daytime.starttime % 60} - ${Math.floor(daytime.endtime/60)}:${daytime.endtime % 60 === 0 ? "00" : daytime.endtime % 60}`;
-                }).join(', ')}
-                {' ]'}
-              </div>
             </div>
-          ))}
+            <div className="text-sm text-gray-700">
+              <span className="font-medium">Timing:</span> [
+              {Data.schedule.map(daytime => (
+                `${daysName[daytime.day]} ${Math.floor(daytime.starttime / 60)}:${daytime.starttime % 60 === 0 ? "00" : daytime.starttime % 60} - ${Math.floor(daytime.endtime/60)}:${daytime.endtime % 60 === 0 ? "00" : daytime.endtime % 60}`
+              )).join(', ')}
+              ]
+            </div>
+          </div>
+        ))}
       </div>
 
-      {openTM && (
-          <div key='1' className='fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center'>
-              <div className='bg-[#008280] w-96 h-[21rem] rounded-md'>
-                  <div className=' absolute w-9 h-9 bg-white rounded-xl cursor-pointer flex items-center justify-center m-2' onClick={()=>setOpenTM(false)}>✖️</div>
-                  <div className='flex flex-col justify-center p-5 text-1xl gap-4'>
-                  <p className='text-center text-2xl bg-blue-900 rounded-sm py-1 text-white mb-5'>{tname.sub.toUpperCase()}</p>
-                  <p>Teacher Name : <span className='text-white'>{tname.fname} {tname.lname}</span></p>
-                  {/* <p>Teacher Name : <span className='text-white'>{tname.fname} {tname.lname}</span> ⭐⭐⭐</p> */}
-                  <p>Education : <span className='text-white'>Postgraduate from <b className='text-gray-200'>{Tdec.PGcollege}</b> with {Tdec.PGmarks} CGPA</span></p>
-                  <p>Experience : <span className='text-white'>{Tdec.Experience} years</span></p>
-                  <p>Course : <span className='text-white'>{tname.sub.toUpperCase()}</span></p>
-                  {/* <p>Course Duration : <span className='text-white'>6 Months</span></p> */}
-                  {/* <p>Fees : <span className='text-white'>Rs. {price[tname.sub]}</span></p> */}
-                  </div>
-              </div>
+      {openTM && Tdec && (
+        <div className='fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50'>
+          <div className='bg-[#008280] w-96 rounded-lg p-6 relative text-white'>
+            <button onClick={() => setOpenTM(false)} className='absolute top-2 right-2 text-black bg-white w-8 h-8 flex items-center justify-center rounded-full'>✖️</button>
+            <h2 className='text-center text-2xl font-bold mb-4'>{tname.sub.toUpperCase()}</h2>
+            <p><strong>Teacher Name:</strong> {tname.fname} {tname.lname}</p>
+            <p><strong>Education:</strong> Postgraduate from <span className='text-gray-200'>{Tdec.PGcollege}</span> with {Tdec.PGmarks} CGPA</p>
+            <p><strong>Experience:</strong> {Tdec.Experience} years</p>
+            <p><strong>Course:</strong> {tname.sub.toUpperCase()}</p>
           </div>
+        </div>
       )}
 
       {popup && <Success onClose={closePopup} />}
-    </>
+    </div>
   );
 }
 

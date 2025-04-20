@@ -20,7 +20,7 @@ function CreateQuiz() {
   };
 
   const submitQuiz = () => {
-    axios.post('http://localhost:5000/api/quiz/create', { title, questions })
+    axios.post('http://localhost:8888/api/quiz/create', { title, questions })
       .then(() => alert('🎉 Quiz Created Successfully!'))
       .catch(() => alert('❌ Failed to create quiz.'));
   };

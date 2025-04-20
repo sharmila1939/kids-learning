@@ -10,7 +10,7 @@ function StudentDashboard() {
   const [data, setdata] = useState([]);
   const [error, setError] = useState(null);
 
-  const Handlelogout = async() =>{
+  const Handlelogout = async () => {
     const response = await fetch(`http://localhost:8888/api/student/logout`, {
       method: 'POST',
       credentials: "include",
@@ -19,7 +19,7 @@ function StudentDashboard() {
       }
     });
     const data = await response.json();
-    if(data.statusCode == 200){
+    if (data.statusCode == 200) {
       navigator('/');
     }
   }
@@ -47,18 +47,18 @@ function StudentDashboard() {
       }
     };
     getData();
-   },[]);
+  }, []);
 
   return (
     <>
-    {/* navbar */}
+      {/* navbar */}
       <nav className='bg-[#04253A] px-10 py-3 flex justify-between items-center'>
         <NavLink to="/">
-        <div className='flex items-center gap-3'>
-          <img src={logo}
-            className="w-14" alt="" />
-          <h1 className='text-2xl text-[#4E84C1] font-bold'>E-Learning For Kids</h1>
-        </div>
+          <div className='flex items-center gap-3'>
+            <img src={logo}
+              className="w-14" alt="" />
+            <h1 className='text-2xl text-[#4E84C1] font-bold'>E-Learning For Kids</h1>
+          </div>
         </NavLink>
         <div className='bg-[#0D199D] text-white py-2 px-5 rounded-full'>
           <p onClick={Handlelogout}>logout</p>
@@ -71,7 +71,7 @@ function StudentDashboard() {
           <h3 className='ml-16 text-[#071645]'>{data.Firstname} {data.Lastname}</h3>
         </div>
         <div className='m-5 mr-20'>
-          <img src={teachingImg} alt="teaching" width={300}/>
+          <img src={teachingImg} alt="teaching" width={300} />
         </div>
       </div>
 
@@ -83,16 +83,22 @@ function StudentDashboard() {
         </div>
 
         <div className='flex flex-col gap-1'>
-          <NavLink to = {`/Student/Dashboard/${ID}/Search`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
-          Teacher
+          <NavLink to={`/Student/Dashboard/${ID}/Search`} className={({ isActive }) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]"}>
+            Teacher
           </NavLink>
 
-          <NavLink to = {`/Student/Dashboard/${ID}/Classes`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
-          Classes
+          <NavLink to={`/Student/Dashboard/${ID}/Classes`} className={({ isActive }) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]"}>
+            Classes
           </NavLink>
 
-          <NavLink to = {`/Student/Dashboard/${ID}/Courses`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
-          Courses
+          <NavLink to={`/Student/Dashboard/${ID}/Courses`} className={({ isActive }) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]"}>
+            Courses
+          </NavLink>
+          <NavLink to={`/homework`} className={({ isActive }) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]"}>
+            homeworksList
+          </NavLink>
+          <NavLink to={`/quizlist`} className={({ isActive }) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]"}>
+            quiz list
           </NavLink>
         </div>
 

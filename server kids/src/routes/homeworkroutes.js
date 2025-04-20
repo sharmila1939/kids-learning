@@ -1,6 +1,9 @@
-const express = require('express');
+import express from 'express';
+import Homework from '../models/homework.js';
+import { upload } from '../middlewares/multer.middleware.js';
+import QuizSubmission  from '../models/submissions.js';
+
 const router = express.Router();
-const Homework = require('../models/homeworkModel');
 
 // Create homework
 router.post('/create', async (req, res) => {
@@ -16,15 +19,35 @@ router.get('/all', async (req, res) => {
 });
 
 // Submit homework
-router.post('/submit/:id', async (req, res) => {
-  const { id } = req.params;
-  const { studentId, file } = req.body;
+router.post('/submit/:id', upload.single('file'), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { studentId } = req.body;
+    const file = req.file;
 
-  const homework = await Homework.findById(id);
-  homework.submittedBy.push({ studentId, file, submittedAt: new Date() });
-  await homework.save();
-  res.json(homework);
+    if (!studentId || !file) {
+      return res.status(400).json({ message: 'Student ID and file are required' });
+    }
+
+    const homework = await Homework.findById(id);
+    if (!homework) {
+      return res.status(404).json({ message: 'Homework not found' });
+    }
+
+    homework.submittedBy.push({
+      studentId,
+      file: file.filename, // or use file.path if you need full path
+      submittedAt: new Date()
+    });
+
+    await homework.save();
+    res.json({ message: 'Homework submitted successfully', homework });
+  } catch (error) {
+    console.error('Submit Error:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
 });
+
 
 // Add feedback
 router.post('/feedback/:id', async (req, res) => {
@@ -41,6 +64,16 @@ router.post('/feedback/:id', async (req, res) => {
   res.json(homework);
 });
 
-module.exports = router;
+// Get all quiz submissions
+router.get('/submissions', async (req, res) => {
+  try {
+    const submissions = await QuizSubmission.find();
+    res.status(200).json(submissions);
+  } catch (error) {
+    console.error('Error fetching quiz submissions:', error);
+    res.status(500).json({ message: 'Server error while fetching submissions' });
+  }
+});
 
-// app.use('/api/homework', homeworkRoutes);
+
+export default router;

@@ -8,9 +8,14 @@ import {
   Box,
   Container,
   CircularProgress,
+  TextField,
+  Button,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
 } from '@mui/material';
 
-// Default dummy quiz data
 const defaultQuiz = {
   title: 'Sample Quiz',
   questions: [
@@ -39,10 +44,13 @@ function TakeQuiz() {
   const [selected, setSelected] = useState(null);
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
+  const [username, setUsername] = useState('');
+  const [started, setStarted] = useState(false);
+  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/quiz/${id}`)
+      .get(`http://localhost:8888/api/quiz/${id}`)
       .then((res) => {
         if (res.data && res.data.questions?.length) {
           setQuiz(res.data);
@@ -56,18 +64,52 @@ function TakeQuiz() {
       });
   }, [id]);
 
-  const handleOptionClick = (i) => {
-    const isCorrect = i === quiz.questions[current].correctAnswer;
-    if (isCorrect) setScore((prev) => prev + 1);
-    setSelected(i);
-    setTimeout(() => {
-      if (current + 1 < quiz.questions.length) {
-        setCurrent(current + 1);
-        setSelected(null);
-      } else {
-        setDone(true);
-      }
-    }, 1000);
+  useEffect(() => {
+    if (quiz) {
+      const initialAnswers = Array(quiz.questions.length).fill(null);
+      setAnswers(initialAnswers);
+    }
+  }, [quiz]);
+
+  const handleOptionChange = (value) => {
+    const updatedAnswers = [...answers];
+    updatedAnswers[current] = parseInt(value);
+    setAnswers(updatedAnswers);
+    setSelected(parseInt(value));
+  };
+
+  const handleNext = () => {
+    if (current < quiz.questions.length - 1) {
+      setCurrent(current + 1);
+      setSelected(answers[current + 1]);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (current > 0) {
+      setCurrent(current - 1);
+      setSelected(answers[current - 1]);
+    }
+  };
+
+  const submitQuiz = async () => {
+    const finalScore = answers.reduce((acc, answer, idx) => {
+      return answer === quiz.questions[idx].correctAnswer ? acc + 1 : acc;
+    }, 0);
+
+    try {
+      await axios.post('http://localhost:8888/api/quiz/submit-quiz', {
+        quizId: id,
+        username,
+        score: finalScore,
+        total: quiz.questions.length,
+      });
+    } catch (error) {
+      console.error('Failed to submit quiz:', error);
+    } finally {
+      setScore(finalScore);
+      setDone(true);
+    }
   };
 
   if (!quiz) {
@@ -78,11 +120,52 @@ function TakeQuiz() {
     );
   }
 
+  if (!started) {
+    return (
+      <Container maxWidth="sm" sx={{ mt: 10 }}>
+        <Box
+          sx={{
+            p: 4,
+            borderRadius: 3,
+            boxShadow: 3,
+            bgcolor: '#f2f2f2',
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="h5" gutterBottom>
+            Enter Your Name to Start Quiz
+          </Typography>
+          <TextField
+            fullWidth
+            label="Your Name"
+            variant="outlined"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            sx={{ mb: 2 }}
+          />
+          <Button
+            variant="contained"
+            disabled={!username}
+            onClick={() => {
+              setStarted(true);
+              setSelected(answers[0]);
+            }}
+          >
+            Start Quiz
+          </Button>
+        </Box>
+      </Container>
+    );
+  }
+
   if (done) {
     return (
       <Container maxWidth="sm" sx={{ textAlign: 'center', mt: 10 }}>
         <Typography variant="h4" gutterBottom>
           🎉 Quiz Finished!
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          Thank you, {username}!
         </Typography>
         <Typography variant="h6">
           Your Score: {score} / {quiz.questions.length}
@@ -111,29 +194,59 @@ function TakeQuiz() {
           Q{current + 1}: {q.question}
         </Typography>
 
-        <Box mt={2}>
-          {q.options.map((opt, i) => (
-            <Card
-              key={i}
-              onClick={() => handleOptionClick(i)}
-              sx={{
-                mb: 1.5,
-                bgcolor:
-                  selected === i
-                    ? i === q.correctAnswer
-                      ? 'lightgreen'
-                      : '#ffcccc'
-                    : 'white',
-                cursor: 'pointer',
-                '&:hover': {
-                  transform: 'scale(1.01)',
-                  transition: '0.2s',
-                },
-              }}
+        <FormControl component="fieldset" sx={{ mt: 2 }}>
+          <RadioGroup
+            value={selected}
+            onChange={(e) => handleOptionChange(e.target.value)}
+          >
+            {q.options.map((opt, i) => (
+              <FormControlLabel
+                key={i}
+                value={i}
+                control={<Radio />}
+                label={opt}
+                sx={{
+                  bgcolor:
+                    answers[current] === i
+                      ? i === q.correctAnswer
+                        ? 'lightgreen'
+                        : '#ffcccc'
+                      : 'white',
+                  borderRadius: 2,
+                  px: 2,
+                  py: 1,
+                  mb: 1,
+                  boxShadow: 1,
+                  transition: 'all 0.2s ease',
+                }}
+              />
+            ))}
+          </RadioGroup>
+        </FormControl>
+
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+          <Button variant="outlined" disabled={current === 0} onClick={handlePrevious}>
+            Previous
+          </Button>
+
+          {current < quiz.questions.length - 1 ? (
+            <Button
+              variant="contained"
+              disabled={selected === null}
+              onClick={handleNext}
             >
-              <CardContent>{opt}</CardContent>
-            </Card>
-          ))}
+              Next
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              color="success"
+              disabled={selected === null}
+              onClick={submitQuiz}
+            >
+              Submit
+            </Button>
+          )}
         </Box>
       </Box>
     </Container>

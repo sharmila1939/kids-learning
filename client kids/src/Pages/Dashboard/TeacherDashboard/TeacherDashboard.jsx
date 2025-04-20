@@ -95,6 +95,30 @@ function TeacherDashboard() {
           <NavLink to={`/Teacher/Dashboard/${ID}/Courses`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
           Courses
           </NavLink>
+
+          <NavLink to={`/create`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+          Create homework
+          </NavLink>
+          <NavLink to={`/homework`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+          homeworksList
+          </NavLink>
+          <NavLink to={`/submissions`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+          homework submissions
+          </NavLink>
+
+          <NavLink to={`/createquiz`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+           create quiz
+          </NavLink>
+   
+          <NavLink to={`/quizlist`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+           quiz list
+          </NavLink>
+
+
+          
+          
+          
+          
         </div>
 
       </div>

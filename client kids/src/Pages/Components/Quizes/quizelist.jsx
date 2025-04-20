@@ -21,7 +21,7 @@ function QuizList() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/quiz/all')
+      .get('http://localhost:8888/api/quiz/all')
       .then((res) => {
         if (res.data && res.data.length > 0) {
           setQuizzes(res.data);

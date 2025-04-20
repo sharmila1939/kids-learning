@@ -13,7 +13,7 @@ function CreateHomework() {
   const handleChange = e => setData({ ...data, [e.target.name]: e.target.value });
 
   const handleSubmit = () => {
-    axios.post('http://localhost:5000/api/homework/create', data).then(() => {
+    axios.post('http://localhost:8888/api/homework/create', data).then(() => {
       alert("Homework created");
     });
   };
