@@ -7,3 +7,5 @@ router.post('/add', addProgress);
 router.get('/student/:studentId', getStudentProgress);
 
 export default router;
+
+

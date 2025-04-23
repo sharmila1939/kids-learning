@@ -52,10 +52,16 @@ import quizRouter from "./routes/quize.route.js"
 app.use("/api/quiz", quizRouter)
 
 import parentAuthRoutes from './routes/parentAuthRoutes.js';
-s
-app.use('/api/parent-auth', parentAuthRoutes);
+
+app.use('/api/parent', parentAuthRoutes);
+
+import progressRouter from "./routes/progressRoutes.js"
+app.use("/api/progress", progressRouter)
+
+import messageRoutes from "./routes/messageRoutes.js"
+app.use('/api/messages', messageRoutes);
 
 
-// 
+// /api/parent/register
 
 export {app}

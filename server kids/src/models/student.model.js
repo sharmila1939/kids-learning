@@ -186,8 +186,5 @@ const studentDetailsSchema = new mongoose.Schema({
 
 
 
-const student = mongoose.model("student",studentSchema)
-
-const studentdocs = mongoose.model("studentdocs", studentDetailsSchema)
-
-export default {student, studentdocs}
+export const student = mongoose.model("student", studentSchema);
+export const studentdocs = mongoose.model("studentdocs", studentDetailsSchema);
