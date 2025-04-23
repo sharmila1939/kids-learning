@@ -26,7 +26,10 @@ const teacherSchema = new mongoose.Schema({
         required:true,
         trim:true,
     },
-
+    ParentId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'parent'
+    },
     Password:{
         type:String,
         required: true,

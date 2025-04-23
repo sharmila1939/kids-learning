@@ -247,6 +247,22 @@ const getStudent = asyncHandler(async(req,res)=>{
     .status(200)
     .json(new ApiResponse(200, user, "Student is logged in"))
 })
+
+
+const getAllStudents = asyncHandler(async (req, res) => {
+    const students = await student.find();
+
+    if (!students || students.length === 0) {
+        throw new ApiError(404, "No students found");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, students, "All students retrieved successfully"));
+});
+
+
+
 const addStudentDetails = asyncHandler(async(req, res)=>{
 
     const id = req.params.id
@@ -419,6 +435,7 @@ export{
       logout, 
       addStudentDetails,
        getStudent, 
+       getAllStudents,
        forgetPassword,
        resetPassword
 }
