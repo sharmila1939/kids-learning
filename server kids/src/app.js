@@ -51,6 +51,11 @@ app.use("/api/homework", homeworkRouter)
 import quizRouter from "./routes/quize.route.js"
 app.use("/api/quiz", quizRouter)
 
+import parentAuthRoutes from './routes/parentAuthRoutes.js';
+s
+app.use('/api/parent-auth', parentAuthRoutes);
+
+
 // 
 
 export {app}
