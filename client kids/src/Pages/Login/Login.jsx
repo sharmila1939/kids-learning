@@ -57,14 +57,28 @@ export default function Login() {
       });
 
       const responesData = await response.json()
+      
       if(responesData.message != 'Logged in'){
         setErr(responesData.message);
       }
-      const userid = responesData.data.user._id
- 
+     
+      
+     
       // Handle response
       if (response.ok) {
         // Authentication successful, you can redirect or do something else
+       if(userType === 'parent'){
+        console.log("Login successful");
+        console.log(responesData);
+
+        localStorage.setItem('parent', JSON.stringify(responesData));
+        
+        navigate(`/ParentHome`)
+
+       }else{
+        localStorage.setItem('teacher', JSON.stringify(responesData.data));
+
+        const userid = responesData.data.user._id
         console.log("Login successful");
         console.log(responesData.data.user.Isapproved);
         
@@ -94,6 +108,7 @@ export default function Login() {
         }else{
           setErr('You are ban from our platform!');
         }
+       }
 
       } else if (response.status === 401) {
         // Incorrect password
@@ -113,6 +128,9 @@ export default function Login() {
         setErrors({ general: "An unexpected error occurred" });
       }
     } catch (error) {
+
+      console.log(error);
+      
    
       setErrors(error.message);
     }

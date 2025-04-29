@@ -40,6 +40,16 @@ import CreateQuiz from './Pages/Components/Quizes/createquizes'
 import QuizList from './Pages/Components/Quizes/quizelist'
 import TakeQuiz from './Pages/Components/Quizes/takequize'
 import HomeworkSubmissions from './Pages/Components/Homework/homeworkSubmissions'
+// import ChatApp from './Pages/chatapp/chat'
+
+import ChatAppTeacher from './Pages/chatapp/chatAppBase'
+// import chatAppParent from './Pages/chatapp/chatAppParent'
+import ParentHome from './Pages/parent/ParentHome'
+import StudentProgress from './Pages/parent/DetailedPage'
+import AssignStudent from './Pages/parent/AssignStudent'
+import AssignTeacher from './Pages/parent/AssignTeacher'
+import ChatAppParent from './Pages/chatapp/chatAppParent'
+import AddProgressModal from './Pages/AddProgress'
 
 
 const router = createBrowserRouter(
@@ -88,6 +98,20 @@ const router = createBrowserRouter(
       <Route path='/createquiz' element={<CreateQuiz/>}/>
       <Route path='/quizlist' element={<QuizList/>}/>
       <Route path='/quiz/:id' element={<TakeQuiz/>}/>
+
+      {/* <Route path='/chat' element={<ChatApp/>}/> */}
+      <Route path='/ParentHome' element={<ParentHome/>}/>
+      <Route path='/StudentProgress' element={<StudentProgress/>}/>
+      <Route path='/AssignStudent' element={<AssignStudent/>}/>
+      <Route path='/AssignTeacher' element={<AssignTeacher/>}/>
+      {/* <Route path='/StudentProgress/:id/:studentID' element={<StudentProgress/>}/> */}
+      <Route path='/chatAppTeacher' element={<ChatAppTeacher/>}/>
+      <Route path='/chatAppParent' element={<ChatAppParent/>}/>
+      <Route path='/AddProgressModal' element={<AddProgressModal/>}/>
+
+      
+
+      
       
       <Route path='*' element={<ErrorPage/>}/>
     </Route>

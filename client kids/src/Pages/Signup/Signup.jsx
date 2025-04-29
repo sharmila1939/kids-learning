@@ -78,8 +78,15 @@ const Signup = () => {
 
       if (response.ok) {
         // Registration successful, you can redirect or do something else
-        console.log("Registration successful");
-        navigate('/varifyEmail');
+        if (userType==='parent'){
+          console.log("Registration successful");
+          navigate('/login');
+          
+        }else{
+          console.log("Registration successful");
+          navigate('/varifyEmail');
+        }
+        
       } else if (response.status === 400) {
         // Handle specific validation errors returned by the server
         setErrors(responseData.errors || {});

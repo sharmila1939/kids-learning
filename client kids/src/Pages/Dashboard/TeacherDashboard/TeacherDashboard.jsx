@@ -113,12 +113,18 @@ function TeacherDashboard() {
           <NavLink to={`/quizlist`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
            quiz list
           </NavLink>
+          <NavLink to={`/chatAppTeacher`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+           Teacher to parent chat
+          </NavLink>
+          <NavLink to={`/AddProgressModal`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+          Add Progress Modal
+          </NavLink>
+          
 
 
           
           
-          
-          
+   
         </div>
 
       </div>
