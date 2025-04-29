@@ -1,0 +1,285 @@
+http://localhost:8888/api/parent/register
+
+
+{
+  "name": "Vignesh Kumar",
+  "email": "vignesh@example.com",
+  "password": "SecurePass@123"
+}
+
+
+
+http://localhost:8888/api/parent/login
+
+{
+  "email": "vignesh@example.com",
+  "password": "SecurePass@123"
+}
+
+
+http://localhost:8888/api/parent/67f820e3f72c6571df2bd3b2
+
+
+response 
+{
+  "studentInfo": {
+    "_id": "67f820e3f72c6571df2bd3b2",
+    "Email": "tcftech11@gmail.com",
+    "Firstname": "Vignesh",
+    "Lastname": "Sugumar",
+    "Password": "$2b$10$IidaJiS..Q8Bi8cVpT5My.0NbTE6niyuK7Yxe9e.i.IdMXnd4LDDS",
+    "Isverified": true,
+    "Isapproved": "pending",
+    "Studentdetails": null,
+    "createdAt": "2025-04-10T19:49:55.143Z",
+    "updatedAt": "2025-04-20T19:35:31.054Z",
+    "__v": 0,
+    "Refreshtoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Y4MjBlM2Y3MmM2NTcxZGYyYmQzYjIiLCJFbWFpbCI6InRjZnRlY2gxMUBnbWFpbC5jb20iLCJpYXQiOjE3NDUxNzc3MzEsImV4cCI6MTc0NTI2NDEzMX0.VakRsss4SLzn_SXUEpeeuYEx9eh-4hWBIgk1s4BEVsw"
+  },
+  "progress": []
+}
+
+
+
+
+http://localhost:8888/api/progress/add
+
+post 
+
+{
+  "studentId": "67f820e3f72c6571df2bd3b2",
+  "subject": "Biology",
+  "progressPercentage": 85,
+  "comments": "Showing great improvement in problem-solving skills."
+}
+
+
+
+http://localhost:8888/api/progress/student/67f820e3f72c6571df2bd3b2
+
+respons 
+[
+  {
+    "_id": "68087dbf64e11808a972db95",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:23.977Z",
+    "createdAt": "2025-04-23T05:42:23.977Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc064e11808a972db97",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:24.147Z",
+    "createdAt": "2025-04-23T05:42:24.147Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc064e11808a972db99",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:24.279Z",
+    "createdAt": "2025-04-23T05:42:24.279Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc064e11808a972db9b",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:24.505Z",
+    "createdAt": "2025-04-23T05:42:24.505Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc164e11808a972db9d",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:25.067Z",
+    "createdAt": "2025-04-23T05:42:25.067Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc164e11808a972db9f",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:25.221Z",
+    "createdAt": "2025-04-23T05:42:25.221Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc164e11808a972dba1",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:25.365Z",
+    "createdAt": "2025-04-23T05:42:25.365Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc164e11808a972dba3",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:25.494Z",
+    "createdAt": "2025-04-23T05:42:25.494Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc164e11808a972dba5",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:25.616Z",
+    "createdAt": "2025-04-23T05:42:25.616Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc164e11808a972dba7",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:25.733Z",
+    "createdAt": "2025-04-23T05:42:25.733Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc164e11808a972dba9",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:25.863Z",
+    "createdAt": "2025-04-23T05:42:25.863Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc264e11808a972dbab",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:26.004Z",
+    "createdAt": "2025-04-23T05:42:26.004Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc264e11808a972dbad",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:26.114Z",
+    "createdAt": "2025-04-23T05:42:26.114Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc264e11808a972dbaf",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:26.239Z",
+    "createdAt": "2025-04-23T05:42:26.239Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc264e11808a972dbb1",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:26.436Z",
+    "createdAt": "2025-04-23T05:42:26.436Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc264e11808a972dbb3",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:26.897Z",
+    "createdAt": "2025-04-23T05:42:26.897Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc364e11808a972dbb5",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:27.063Z",
+    "createdAt": "2025-04-23T05:42:27.063Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc364e11808a972dbb7",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:27.214Z",
+    "createdAt": "2025-04-23T05:42:27.214Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc364e11808a972dbb9",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:27.349Z",
+    "createdAt": "2025-04-23T05:42:27.349Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dc364e11808a972dbbb",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Mathematics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:27.578Z",
+    "createdAt": "2025-04-23T05:42:27.578Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dcc64e11808a972dbbd",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Physics",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:36.099Z",
+    "createdAt": "2025-04-23T05:42:36.099Z",
+    "__v": 0
+  },
+  {
+    "_id": "68087dd664e11808a972dbbf",
+    "studentId": "67f820e3f72c6571df2bd3b2",
+    "subject": "Biology",
+    "progressPercentage": 85,
+    "comments": "Showing great improvement in problem-solving skills.",
+    "updatedAt": "2025-04-23T05:42:46.093Z",
+    "createdAt": "2025-04-23T05:42:46.093Z",
+    "__v": 0
+  }
+]
+
+
+

@@ -153,6 +153,7 @@ const Admin = () => {
         <div onClick={()=>navigator(`/admin/course/${data}`)} className=" absolute right-52 top-[6.5rem] text-center cursor-pointer">
             <h4 className="text-white bg-blue-800 p-4 w-44">Course Requests</h4>
         </div>
+       
 
         {open && (
           <div className="mt-3 w-[30rem] absolute right-10 bg-gray-700 text-gray-100 p-5">
@@ -167,9 +168,17 @@ const Admin = () => {
           </div>
         )}
 </div>
-       
+
+
+
       
       <div className="flex items-start justify-center gap-20">
+      <div onClick={()=>navigator(`/AssignTeacher`)} className=" ">
+            <h4 className="text-white bg-blue-800 p-4 w-44">All Teachers && Assign Parents</h4>
+        </div>
+        <div onClick={()=>navigator(`/AssignStudent`)} className=" ">
+            <h4 className="text-white bg-yellow-800 p-4 w-44">All Students && Assign Parents </h4>
+        </div>
         <div className="rounded-md">
           <h4 className="text-white bg-blue-gray-900 p-4 w-40">Student Request</h4>
           {
@@ -245,7 +254,6 @@ const Admin = () => {
             )) : null
           }
         </div>
-        
       </div>
 
     </div>

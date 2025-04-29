@@ -33,6 +33,23 @@ function Radiobtn({userType,setUserType}) {
             Teacher
           </label>
         </div>
+
+        <div className="radio-button">
+          <input
+            name="radio-group"
+            id="radio0"
+            className="radio-button__input"
+            type="radio"
+            checked={userType === 'parent'}
+            onChange={()=>setUserType('parent')}
+           
+          />
+          <label htmlFor="radio0" className="radio-button__label">
+            <span className="radio-button__custom" />
+            Parent
+          </label>
+        </div>
+
       </div>
     </>
   );
